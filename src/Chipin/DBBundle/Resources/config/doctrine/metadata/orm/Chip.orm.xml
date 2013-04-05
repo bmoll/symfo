@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Chip" table="chip">
+    <id name="id" type="string" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="subject" type="text" column="subject" nullable="false"/>
+    <field name="nuclearsum" type="decimal" column="nuclearSum" nullable="false"/>
+    <field name="visibility" type="integer" column="visibility" nullable="false"/>
+    <field name="datecreated" type="datetime" column="dateCreated" nullable="false"/>
+    <field name="dateedited" type="datetime" column="dateEdited" nullable="false"/>
+    <field name="datestarts" type="datetime" column="dateStarts" nullable="false"/>
+    <field name="dateends" type="datetime" column="dateEnds" nullable="true"/>
+    <field name="dateactivated" type="datetime" column="dateActivated" nullable="false"/>
+    <field name="datedeleted" type="datetime" column="dateDeleted" nullable="true"/>
+    <many-to-one field="currencyid" target-entity="Currency">
+      <join-columns>
+        <join-column name="currencyID" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="chipsstatusid" target-entity="Chipsstatus">
+      <join-columns>
+        <join-column name="chipsStatusID" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

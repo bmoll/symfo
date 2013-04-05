@@ -1,0 +1,44 @@
+{% extends 'ChipinAdminBundle:Default:baseFrame.html.twig' %}
+
+{% block siteMainBlock %}
+              <div class="widget">
+                <header>
+                    <h3>Lista użytkowników <span>serwisu zrzutka.pl</span></h3>
+                    <ul class="toggle_content">                         
+                        <li class="arrow"><a href="#">Toggle Content</a></li>
+                    </ul>
+                </header>
+                <section>                         
+                     <table class="table_basic css">
+                        <thead>
+                            <tr>
+                                <td style="width: 135px;">ID</td>
+                                <td style="width: auto;">e-mail</td>
+                                <td style="width: 40px;">status</td>
+                                <td style="width: auto;">nazwisko, imię (nickname)</td>
+                                <td style="width: 110px;">data utworzenia</td>
+                                <td style="width: 110px;">data aktywności</td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in site['users'] %}
+                            {% set nameToShow = (user.surname ? user.surname ~ ', ') ~ user.forename ~ ' (' ~ (user.nickname ?: '-') ~ ')' %}
+                          
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.usersStatusID.name|slice(0,5) }}</td>
+                                <td>{{ nameToShow }}</td>
+                                <td>{{ user.dateCreated|date("H:m d.m.y") }}</td>
+                                <td>{{ user.dateEdited|date("H:m d.m.y") }}</td>
+                            </tr>
+                            {% endfor %}                        
+                        </tbody>
+                    </table>                      
+                </section>
+              </div>
+{% endblock %}
+
+
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Userssession" table="usersSession">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="sessionkey" type="string" column="sessionKey" length="255" nullable="false"/>
+    <field name="sessiondata" type="text" column="sessionData" nullable="true"/>
+    <field name="datestarted" type="datetime" column="dateStarted" nullable="false"/>
+    <field name="dateactive" type="datetime" column="dateActive" nullable="false"/>
+    <field name="dateended" type="datetime" column="dateEnded" nullable="true"/>
+    <many-to-one field="userid" target-entity="Frontuser">
+      <join-columns>
+        <join-column name="userID" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

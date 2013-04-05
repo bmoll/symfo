@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+	<head>
+    <meta charset="utf-8">
+    <title>{% block siteTitleBlock %}{{ siteTitle | default('Tytuł strony') }}{% endblock %}</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />    
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% block siteMetaEndBlock %}
+    {% endblock %}  
+
+    <!-- ===================== Touch Icons ===================== -->
+    <!--
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
+	-->
+
+    <!-- ===================== CSS ===================== -->    
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>  
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/bootstrap/bootstrap-responsive.min.css') }}">    
+
+    <!-- Site specific - CSS --> 
+    {% block siteCSSMidBlock %}
+    {% endblock %}        
+
+    <!-- Common - CSS -->     
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/theme_light/common.css') }}">  
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/theme_light.css') }}" class="style_set">
+    {% block siteCSSEndBlock %}
+    {% endblock %}    
+    
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js') }}"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="loader_cont"><img src="{{ asset('bundles/adminbundle/img/loaders/page_loader.gif') }}"></div> 
+
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="sweet-gray sweet-go-back-from-screen">&nbsp;</span>
+          </a>
+          <div class="nav-collapse">            
+            <ul class="nav main_nav" role="navigation">                
+                          
+            </ul> 
+            <ul class="main_nav nav pull-right">                
+                <li id="profile" class="styled dropdown profile">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Profile</a>
+                    <ul class="dropdown-menu top_menu">                        
+                        <li class="profile group">
+                          <img src="{{ asset('bundles/adminbundle/img/general/user_1.jpg') }}" width="50" height="50" alt="User">
+                          <ul>
+                            <li><strong>John Doe</strong></li>
+                            <li>@johndoe</li>
+                            <li><span>Administrator</span></li>
+                          </ul>
+                        </li>
+                        <li><a class="mn_settings" href="#"><span>My Settings</span></a></li>
+                        <li><a class="mn_profile" href="#"><span>My Profile</span></a></li>
+                        <li><a class="mn_logout" href="login.html"><span>Logout</span></a></li>
+                    </ul>
+                </li>                          
+            </ul>           
+          </div>
+          <h1 class="brand"><a href="index.html">PHOENIX</a></h1>                                       
+        </div>
+      </div>
+    </div>
+            
+    <div class="container">  
+
+      
+      <div class="main_content row-fluid">
+
+      	{% block siteSideMenuBlock %}
+        <div class="span3">
+        {{ include('ChipinAdminBundle:Default:baseFrameSideMenu.html.twig', {'activeItem':site['sideMenuConfigActiveItem']}) }}
+        </div><!--/span-->
+		    {% endblock %}
+
+
+        <div class="span9">
+          <div class="row-fluid">
+            <div class="span12">
+              {% block siteMainBlock %}
+              {% endblock %}
+            </div>                  
+          </div><!--/row-->
+           
+          
+        </div><!--/span-->
+
+      </div><!--/row-->      
+      <hr>
+
+      <footer>
+      	{% block siteFooterBlock %}
+        <p>{{ siteFooterCopyrights | default('© Joy Intermedia sp. z o.o. 2013') }}</p>
+        {% endblock %}
+      </footer>
+      
+
+
+
+
+    </div><!--/.fluid-container-->
+
+    <!-- ===================== JS ===================== -->
+    <script src="{{ asset('bundles/adminbundle/js/libs/jquery-1.7.2.min.js') }}"></script>    
+    <script src="{{ asset('bundles/adminbundle/js/libs/bootstrap.min.js') }}"></script>   
+    <script src="{{ asset('bundles/adminbundle/js/libs/ios-orientationchange-fix.js') }}"></script>          
+    <script src="{{ asset('bundles/adminbundle/js/libs/jquery-ui-1.8.20.custom.min.js') }}"></script>
+    <script src="{{ asset('bundles/adminbundle/js/plugins/widgets/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('bundles/adminbundle/js/common.js') }}"></script>  
+
+    <!-- Site specific --> 
+    {% block siteJSMidBlock %}
+    {% endblock %} 
+
+    <script src="{{ asset('bundles/adminbundle/js/script.js') }}"></script>
+
+    {% block siteJSEndBlock %}
+    {% endblock %} 
+
+  </body>
+</html>

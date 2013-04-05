@@ -1,0 +1,7 @@
+parameters:
+#    chipin_admin.example.class: Chipin\AdminBundle\Example
+
+services:
+#    chipin_admin.example:
+#        class: %chipin_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

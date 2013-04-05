@@ -1,0 +1,33 @@
+          <div class="side_nav sidebar-nav" data-spy="affix" data-offset-top="150">
+            <h3 class="main_menu group">
+                <span class="title">Main Menu</span>
+                <a id="nav_list_btn" class="btn-collapse btn btn-inverse">
+                  <span class="sweet-gray sweet-go-back-from-screen">&nbsp;</span>              
+                </a>
+            </h3>
+            <ul class="nav nav-list">        
+
+                <li class="{% if activeItem == 'homepage' %}active{% endif %}"><a class="home" href="{{ path('chipin_admin_homepage') }}">Strona główna</a></li>
+                <li class="sub {% if 'frontUsers/' in activeItem %}open{% endif %}">
+	                <a class="pages" href="#">Użytkownicy</a>
+	                <ul>
+						<li class="{% if activeItem == 'frontUsers/list' %}active{% endif %}"><a class="pages" href="{{ path('chipin_admin_frontUsersList') }}">Lista użytkowników</a></li> 
+						<li class="{% if activeItem == 'frontUsers/edit' %}active{% endif %}"><a class="pages" href="{{ path('chipin_admin_frontUsersEdit', {'parameter':'new'}) }}">Dodaj użytkownika</a></li> 
+	                </ul>
+	            </li>
+	            <li class="sub {% if 'chipIns/' in activeItem %}open{% endif %}">
+	                <a class="pages" href="#">Zrzutki</a>
+	                <ul>
+						<li class="{% if activeItem == 'chipIns/list' %}active{% endif %}"><a class="pages" href="{{ path('chipin_admin_chipsList') }}">Lista Zrzutek</a></li> 
+						<li class="{% if activeItem == 'chipIns/add' %}active{% endif %}"><a class="pages" href="{{ path('chipin_admin_chipsEdit', {'parameter':'new'}) }}">Dodaj Zrzutkę</a></li> 
+	                </ul>
+	            </li>
+                <li class="{% if activeItem == 'settings' %}active{% endif %}"><a class="widgets" href="{{ path('chipin_admin_settings') }}">Ustawienia</a></li>
+
+          
+
+
+            </ul>
+
+          </div><!--/.well -->
+        

@@ -1,0 +1,3 @@
+chipin_core_homepage:
+    pattern:  /chipin/{name}
+    defaults: { _controller: ChipinCoreBundle:Default:index }

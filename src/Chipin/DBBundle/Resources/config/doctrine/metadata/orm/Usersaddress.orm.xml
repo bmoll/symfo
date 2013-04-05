@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Usersaddress" table="usersAddress">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="status" type="integer" column="status" nullable="false"/>
+    <field name="country" type="string" column="country" length="255" nullable="false"/>
+    <field name="city" type="string" column="city" length="255" nullable="false"/>
+    <field name="postalcode" type="string" column="postalCode" length="255" nullable="false"/>
+    <field name="street" type="string" column="street" length="255" nullable="false"/>
+    <field name="houseno" type="string" column="houseNo" length="255" nullable="false"/>
+    <field name="apartmentno" type="string" column="apartmentNo" length="255" nullable="false"/>
+    <field name="phoneno" type="string" column="phoneNo" length="255" nullable="false"/>
+    <field name="datecreated" type="datetime" column="dateCreated" nullable="false"/>
+    <field name="dateedited" type="datetime" column="dateEdited" nullable="false"/>
+    <field name="datedeleted" type="datetime" column="dateDeleted" nullable="true"/>
+    <many-to-one field="userid" target-entity="Frontuser">
+      <join-columns>
+        <join-column name="userID" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

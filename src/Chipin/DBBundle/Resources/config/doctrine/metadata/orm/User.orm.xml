@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="User" table="user">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="email" type="string" column="email" length="255" nullable="false"/>
+    <field name="forename" type="string" column="forename" length="255" nullable="false"/>
+    <field name="surname" type="string" column="surname" length="255" nullable="false"/>
+    <field name="nickname" type="string" column="nickname" length="255" nullable="false"/>
+    <field name="password" type="string" column="password" length="32" nullable="false"/>
+    <field name="datecreated" type="datetime" column="dateCreated" nullable="false"/>
+    <field name="dateedited" type="datetime" column="dateEdited" nullable="false"/>
+    <field name="dateregistered" type="datetime" column="dateRegistered" nullable="false"/>
+    <field name="dateactivate" type="datetime" column="dateActivate" nullable="false"/>
+    <field name="datedeleted" type="datetime" column="dateDeleted" nullable="false"/>
+    <many-to-one field="usersstatusid" target-entity="Usersstatus">
+      <join-columns>
+        <join-column name="usersStatusID" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

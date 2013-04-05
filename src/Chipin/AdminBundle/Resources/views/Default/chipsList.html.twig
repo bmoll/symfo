@@ -1,0 +1,48 @@
+{% extends 'ChipinAdminBundle:Default:baseFrame.html.twig' %}
+
+{% block siteMainBlock %}
+              <div class="widget">
+                <header>
+                    <h3>Lista Zrzutek <span>serwisu zrzutka.pl</span></h3>
+                    <ul class="toggle_content">                         
+                        <li class="arrow"><a href="#">Toggle Content</a></li>
+                    </ul>
+                </header>
+                <section>                         
+                     <table class="table_basic css">
+                        <thead>
+                            <tr>
+                                <td style="width: 55px;">ID</td>
+                                <td style="width: 35px;">typ</td>
+                                <td style="width: 35px;">status</td>
+                                <td style="width: 65px;">kwota</td>
+                                <td style="width: 65px;">suma</td>
+                                <td style="width: auto;">przedmiot zrzutki</td>
+                                <td style="width: 110px;">utworzona</td>
+                                <td style="width: 110px;">start</td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for chipin in site['chipins'] %}
+                            {% set visibilityToShow = chipin.visibility == 1 ? 'pub' : 'priv' %}
+                          
+                            <tr>
+                                <td>{{ chipin.id }}</td>
+                                <td>{{ visibilityToShow }}</td>
+                                <td>{{ chipin.chipsStatusID.name|slice(0,3) }}</td>
+                                <td style="text-align: right;">{{ chipin.nuclearSum }}&nbsp;{{ chipin.currencyID.symbol }}</td>
+                                <td style="text-align: right;">{{ '0.00' }}  {{ chipin.currencyID.symbol }}</td>
+                                <td>{{ chipin.subject }}</td>
+                                <td>{{ chipin.dateCreated|date("H:m d.m.y") }}</td>
+                                <td>{{ chipin.dateStarts|date("H:m d.m.y") }}</td>
+                            </tr>
+                            {% endfor %}                        
+                        </tbody>
+                    </table>                      
+                </section>
+              </div>
+{% endblock %}
+
+
+

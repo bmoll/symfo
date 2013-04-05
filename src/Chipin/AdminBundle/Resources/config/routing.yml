@@ -1,0 +1,31 @@
+chipin_admin_homepage:
+    pattern:  /admin
+    defaults: { _controller: ChipinAdminBundle:Default:index }
+
+chipin_admin_frontUsers:
+    pattern:  /admin/frontusers
+    defaults: { _controller: ChipinAdminBundle:Frontusers:list }
+
+chipin_admin_frontUsersList:
+    pattern:  /admin/frontusers/list
+    defaults: { _controller: ChipinAdminBundle:Frontusers:list }
+
+chipin_admin_frontUsersEdit:
+    pattern:  /admin/frontusers/edit/{parameter}
+    defaults: { _controller: ChipinAdminBundle:Frontusers:edit }
+
+chipin_admin_chips:
+    pattern:  /admin/chipins
+    defaults: { _controller: ChipinAdminBundle:Chipins:list }
+
+chipin_admin_chipsList:
+    pattern:  /admin/chipins/list
+    defaults: { _controller: ChipinAdminBundle:Chipins:list }
+
+chipin_admin_chipsEdit:
+    pattern:  /admin/chipins/edit/{parameter}
+    defaults: { _controller: ChipinAdminBundle:Chipins:edit }
+
+chipin_admin_settings:
+    pattern:  /admin/settings
+    defaults: { _controller: ChipinAdminBundle:Default:settings }

@@ -1,0 +1,223 @@
+{% extends 'ChipinAdminBundle:Default:baseFrame.html.twig' %}
+
+{% set userToEdit = site['editableUser']|default(null) %}
+{% set addressToEdit = site['editableAddress']|default(null) %}
+{% set accountToEdit = site['editableAccount']|default(null) %}
+
+{% block siteCSSMidBlock %}
+
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/theme_light/prettify.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/theme_light/jquery-ui-1.8.20.custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/theme_light/formselements/chosen.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/theme_light/formselements/dropkick.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/theme_light/formselements/multi-select.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/theme_light/formselements/jquery.ibutton.css') }}"> 
+
+    <link rel="stylesheet" href="{{ asset('bundles/adminbundle/css/theme_light/filevalidation/validationEngine.jquery.css') }}">
+
+    <style type="text/css">
+      .addBottomMargin { margin-bottom: 3px !important; }
+      .addTopMargin { margin-top: 3px !important; }
+    </style>
+
+{% endblock %} 
+
+{% block siteMainBlock %}
+              <div class="widget">
+                <header>
+                    <h3>{{ userToEdit.id|default(null) ? 'Edycja istniejącego użytkownika' : 'Dodaj nowego użytkownika' }} <span>serwisu zrzutka.pl</span></h3>
+                    <ul class="toggle_content">                         
+                        <li class="arrow"><a href="#">Toggle Content</a></li>
+                    </ul>
+                </header>
+                <section class="welly  form_align">                         
+                  <form class="formClass" method="post">
+
+                    <div class="row-fluid">
+                      <div class="span3 ">e-mail:</div>
+                      <div class="span9 "><input value="{{ userToEdit.email|default('') }}" class="validate[required,custom[email]] text-input input-xlarge" type="text" name="newFrontUser_email" id="newFrontUser_email" /></div>
+                    </div> 
+                    {% if userToEdit.id|default(null) %}
+                    <div class="row-fluid addTopMargin">
+                      <div class="span3 ">id:</div>
+                      <div class="span9 "><input value="" class="validate[] text-input input-xlarge " type="text" name="newFrontUser_id" id="newFrontUser_id" disabled placeholder="{{ userToEdit.id|default('') }}" /></div>
+                    </div> 
+                    {% endif %}
+                    <hr>
+                    <div class="row-fluid">
+                      <div class="span3 ">status:</div>
+                      <div class="span9 ">
+                        <select class="validate[required] dropkick input-xlarge" name="newFrontUser_status" id="newFrontUser_status">
+                          {% if not userToEdit.id|default(null) %}
+                          <option value="">Nadaj użytkownikowi status</option>
+                          {% endif %}
+                          {% for usersStatus in site['usersStatuses'] %}
+                          <option value="{{ usersStatus.id }}" {{ userToEdit.usersstatusid.id|default(99999) == usersStatus.id ? 'selected="selected"' : '' }}>{{ usersStatus.name }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row-fluid">
+                      <div class="span3 ">hasło (dwukrotnie):</div>
+                      <div class="span9 ">
+                        <input value="" class="validate[] text-input input-xlarge" type="password" name="newFrontUser_password" id="newFrontUser_password" />
+                      </div>
+                    </div> 
+                    <div class="row-fluid addTopMargin">
+                      <div class="span3 ">{{ userToEdit.id|default(null) and userToEdit.password|default(null) ? '[obecnie jest nadane]' }}</div>
+                      <div class="span9 ">
+                        <input value="" class="validate[equals[newFrontUser_password]] text-input input-xlarge" type="password" name="newFrontUser_password2" id="newFrontUser_password2" />
+
+                      </div>
+                    </div> 
+                    <hr>
+
+                    <div class="row-fluid">
+                      <div class="span3 ">imię:</div>
+                      <div class="span9 "><input value="{{ userToEdit.forename|default('') }}" class="validate[] text-input input-xlarge" type="text" name="newFrontUser_forename" id="newFrontUser_forename" /></div>
+                    </div> 
+                    <div class="row-fluid addTopMargin">
+                      <div class="span3 ">nazwisko:</div>
+                      <div class="span9 "><input value="{{ userToEdit.surname|default('') }}" class="validate[] text-input input-xlarge" type="text" name="newFrontUser_surname" id="newFrontUser_surname" /></div>
+                    </div>
+                    <div class="row-fluid addTopMargin">
+                      <div class="span3 ">pseudonim:</div>
+                      <div class="span9 "><input value="{{ userToEdit.nickname|default('') }}" class="validate[] text-input input-xlarge" type="text" name="newFrontUser_nickname" id="newFrontUser_nickname" /></div>
+                    </div> 
+                    <hr class="big_space">
+
+                    <label class="">
+                      <div class="checker uniform_styled" >
+                        <span class="checked"><input type="checkbox" {{ addressToEdit.id|default(null) ? 'checked="checked"' }} id="newUsersAddress_switch" style="opacity: 0;"></span>
+                      </div>
+                      Dane adresowe
+                    </label>
+                    <hr>
+
+                    <div class="row-fluid">
+                      <div class="span3 ">kraj:</div>
+                      <div class="span9 "><input value="{{ addressToEdit.country|default('') }}" class="validate[] text-input input-large newUsersAddress" type="text" name="newUsersAddress_country" id="newUsersAddress_country" /></div>
+                    </div>
+                    <div class="row-fluid addTopMargin">
+                      <div class="span3 ">miasto i kod pocztowy:</div>
+                      <div class="span9 ">
+                        <input value="{{ addressToEdit.city|default('') }}" class="validate[required] text-input input-large newUsersAddress" type="text" name="newUsersAddress_city" id="newUsersAddress_city" />
+                        <input value="{{ addressToEdit.postalcode|default('') }}" class="validate[required] text-input input-mini newUsersAddress" type="text" name="newUsersAddress_postalCode" id="newUsersAddress_postalCode" />
+                      </div>
+                    </div>  
+                    <div class="row-fluid addTopMargin">
+                      <div class="span3 ">ulica, nr budynku/lokalu:</div>
+                      <div class="span9 ">
+                        <input value="{{ addressToEdit.street|default('') }}" class="validate[required] text-input input-large newUsersAddress" type="text" name="newUsersAddress_street" id="newUsersAddress_street" />
+                        <input value="{{ addressToEdit.houseno|default('') }}" class="validate[required] text-input input-mini newUsersAddress" type="text" name="newUsersAddress_houseNo" id="newUsersAddress_houseNo" /> /
+                        <input value="{{ addressToEdit.apartmentno|default('') }}" class="validate[] text-input input-mini newUsersAddress" type="text" name="newUsersAddress_apartmentNo" id="newUsersAddress_apartmentNo" />
+                      </div>
+                    </div>
+                    <hr> 
+
+                    <div class="row-fluid">
+                      <div class="span3 ">numer telefonu:</div>
+                      <div class="span9 "><input value="{{ addressToEdit.phoneno|default('') }}" class="validate[required] text-input input-xlarge newUsersAddress" type="text" name="newUsersAddress_phoneNo" id="newUsersAddress_phoneNo" /></div>
+                    </div>
+                    <hr class="big_space">
+
+
+                    <label class="">
+                      <div class="checker uniform_styled">
+                        <span class="checked"><input type="checkbox" {{ accountToEdit.id|default(null) ? 'checked="checked"' }} id="newUsersAccount_switch" style="opacity: 0;"></span>
+                      </div>
+                      Dane konta bankowego
+                    </label>
+                    <hr>
+
+                    <div class="row-fluid">
+                      <div class="span3 ">nazwa banku:</div>
+                      <div class="span9 "><input value="{{ accountToEdit.bank|default('') }}" class="validate[required] text-input input-xlarge newUsersAccount" type="text" name="newUsersAccount_bank" id="newUsersAccount_bank" /></div>
+                    </div>
+                    <div class="row-fluid addTopMargin">
+                      <div class="span3 ">numer konta:</div>
+                      <div class="span9 "><input value="{{ accountToEdit.number|default('') }}" class="validate[required] text-input input-xlarge newUsersAccount" type="text" name="newUsersAccount_number" id="newUsersAccount_number" /></div>
+                    </div> 
+                    <hr class="big_space">
+
+                    <div class="row-fluid right">
+                      <div class="span12"><input class="btn btn-inverse" type="submit" value="Zapisz"/></div>
+                    </div> 
+                    <hr/>
+                  </form>  
+
+
+                </section>
+              </div>
+{% endblock %}
+
+
+
+{% block siteJSEndBlock %}
+
+    <script src="{{ asset('bundles/adminbundle/js/libs/prettify.js') }}"></script>      
+      
+    <!--[if lt IE 9]>      
+          <script type="text/javascript" src="{{ asset('bundles/adminbundle/js/plugins/charts/excanvas.min.js') }}"></script>
+    <![endif]--> 
+
+    {#
+    <script src="{{ asset('bundles/adminbundle/js/plugins/formselements/jquery.maskedinput-1.3.min.js') }}"></script> 
+    <script src="{{ asset('bundles/adminbundle/js/plugins/formselements/chosen.jquery.min.js') }}"></script> 
+    #}
+
+    <script src="{{ asset('bundles/adminbundle/js/plugins/formselements/scrollability.min.js') }}"></script> 
+    <script src="{{ asset('bundles/adminbundle/js/plugins/formselements/jquery.dropkick-1.0.0.js') }}"></script> 
+
+    <script src="{{ asset('bundles/adminbundle/js/plugins/filevalidation/languages/jquery.validationEngine-pl.js') }}"></script>  
+    <script src="{{ asset('bundles/adminbundle/js/plugins/filevalidation/jquery.validationEngine.js') }}"></script>  
+
+    <script src="{{ asset('bundles/adminbundle/js/specific/custom_frontUsersEdit.js') }}"></script>
+
+<script>
+
+  jQuery(function($) { 
+     
+
+    // --->> 1 - File validation setup -------------- 
+    jQuery(".formClass").validationEngine({promptPosition : "centerRight",  autoPositionUpdate:true});
+
+    $('.dropkick').dropkick();
+
+
+
+    $('#newUsersAddress_switch').change(function() {
+      if($(this).is(':checked')) $('.newUsersAddress').each(function() { enableField($(this)); });
+      else $('.newUsersAddress').each(function() { disableField($(this)); });
+    });
+
+    $('#newUsersAccount_switch').change(function() {
+      if($(this).is(':checked')) $('.newUsersAccount').each(function() { enableField($(this)); });
+      else $('.newUsersAccount').each(function() { disableField($(this)); });
+    });
+
+
+    if($(this).is(':checked')) $('.newUsersAddress').each(function() { enableField($(this)); });
+    else $('.newUsersAddress').each(function() { disableField($(this)); });
+
+    if($(this).is(':checked')) $('.newUsersAccount').each(function() { enableField($(this)); });
+    else $('.newUsersAccount').each(function() { disableField($(this)); });
+    
+  });
+
+  function enableField(f) {
+    f.removeAttr('disabled'); 
+    f.val(f.attr('placeholder'));
+    f.attr('placeholder', '');  
+  }
+
+  function disableField(f) {
+    f.attr('disabled', 'disabled'); 
+    f.attr('placeholder', f.val()); 
+    f.val('');
+  }
+
+</script>
+
+{% endblock %} 
